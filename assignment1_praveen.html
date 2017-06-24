@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>  
+<body>
+
+<h2>Validation Example</h2>
+
+<form ng-app="myApp" ng-controller="validateCtrl" 
+name="myForm" ng-submit=addRow() novalidate>
+
+<p>Username:<br>
+<input type="text" name="user" ng-model="name" required>
+<span style="color:red" ng-show="myForm.user.$dirty && myForm.user.$invalid">
+<span ng-show="myForm.user.$error.required">Username is required.</span>
+</span>
+</p>
+
+<p>Subject 1:<br>
+<input type="number" name="subject1" ng-model="subject1" required>
+<span style="color:red" ng-show="myForm.subject1.$dirty && myForm.subject1.$invalid">
+<span ng-show="myForm.subject1.$error.required">Subject 1 is required.</span>
+</p>
+
+<p>Subject 2:<br>
+<input type="number" name="subject2" ng-model="subject2" required>
+<span style="color:red" ng-show="myForm.subject2.$dirty && myForm.subject2.$invalid">
+<span ng-show="myForm.subject2.$error.required">Subject 2 is required.</span>
+</p>
+
+<p>Subject 3:<br>
+<input type="number" name="subject3" ng-model="subject3" required>
+<span style="color:red" ng-show="myForm.subject3.$dirty && myForm.subject3.$invalid">
+<span ng-show="myForm.subject3.$error.required">Subject 3 is required.</span>
+</p>
+<div id="output">Name : {{user}} Average: {{(subject3+subject2+subject1)/3}}</div>
+<p>
+<input type="submit"
+ng-disabled="myForm.user.$dirty && myForm.user.$invalid ||  
+myForm.subject1.$dirty && myForm.subject1.$invalid"||  
+myForm.subject2.$dirty && myForm.subject2.$invalid"||  
+myForm.subject3.$dirty && myForm.subject3.$invalid">
+</p>
+<p>
+<table class="table">
+	<tr>
+		<th>Name
+		</th>
+		<th>subject1
+		</th>
+		<th>subject2
+		</th>
+		<th>subject3
+		</th>
+	</tr>
+	<tr ng-repeat="student in students">
+		<td>{{student.name}}
+		</td>
+		<td>{{student.subject1}}
+		</td>
+		<td>{{student.subject2}}
+		</td>
+		<td>{{student.subject3}}
+		</td>
+	</tr>
+</table>
+</p>
+</form>
+
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('validateCtrl', function($scope) {
+    $scope.user = 'Test user';
+    $scope.subject1 = '10';
+    $scope.students = [{'name':'', 'subject1':'', 'subject2':'', 'subject3':''}];
+    $scope.addRow = function(){$scope.students.push({'name':$scope.name, 'subject1':$scope.subject1, 'subject2':$scope.subject2, 'subject3':$scope.subject3}); alert($scope.students)};
+	$scope.name='';
+	$scope.subject1='';
+	$scope.subject2='';
+$scope.subject3='';
+});
+</script>
+
+</body>
+</html>
